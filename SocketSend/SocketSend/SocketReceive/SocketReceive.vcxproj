@@ -76,6 +76,7 @@
     <None Include="..\res\onLine.wav" />
     <None Include="C:\Users\Jia_Vc\Desktop\jwx\jwx.ico" />
     <None Include="c:\users\jia_vc\desktop\jwx\wave1.bin" />
+    <None Include="jwx.ico" />
     <None Include="ReadMe.txt" />
     <None Include="small.ico" />
     <None Include="SocketReceive.ico" />

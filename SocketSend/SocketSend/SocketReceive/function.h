@@ -46,3 +46,5 @@ int closeService(SOCKET serviceSocket);
 int sendLine(SOCKET &s, char* buffSend, HWND hwnd);
 //向窗口添加文本
 void mySetWindowText(char* msg);
+//rpc function
+void sayHello(char** ret, char* myName, int myAge);

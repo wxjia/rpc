@@ -342,8 +342,41 @@ DWORD WINAPI ThreadRecv( LPVOID lpParam )
 			connCount--;
 			return TRUE;
 		}
-		mySetWindowText(buffer);
-		sendLine(s, buffer, hWnd);
+		// mySetWindowText(buffer);
+		// sendLine(s, buffer, hWnd);
+		char funcName[128];
+		char* pFuncName = funcName;
+		while (*buffer != ' ')
+		{
+			*pFuncName++ = *buffer++;
+		}
+		*pFuncName = '\0';
+		buffer++;
+
+		if (strcmp(funcName,"sayHello") == 0)
+		{
+			char* ret = (char*)malloc(1024 * sizeof(char));
+			char name[128], strAge[64];
+			char* pName = name;
+			char* pAge = strAge;
+			
+			while (*buffer != ' ')
+			{
+				*pAge++ = *buffer++;
+			}
+			*pAge = '\0';
+			int age = atoi(strAge);
+			buffer++;
+
+			while (*buffer != ' ' && *buffer != '\0')
+			{
+				*pName++ = *buffer++;
+			}
+			*pName = '\0';
+
+			sayHello(&ret, name, age);
+			sendLine(s, ret, hWnd);
+		}
 	}
 	return 0;
 }
@@ -467,4 +500,11 @@ void mySetWindowText(char* msg)
 		wsprintf(newTextStr,TEXT("%s\r\n%s"),editTextBuffer,msg);
 	}
 	SetWindowText(editHwnd, newTextStr);
+}
+
+//rpc function
+void sayHello(char** ret, char* myName, int myAge)
+{
+	*ret = (char*)malloc(512 * sizeof(char));
+	wsprintf(*ret, "sayHello() is called.\r\nHello, myAge is %d years old, myName is %s.", myAge, myName);
 }
